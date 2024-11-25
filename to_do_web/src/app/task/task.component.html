@@ -1,7 +1,10 @@
-<div class="card rounded-md shadow-md p-3 my-2" *ngIf="task" (dblclick)="edit.emit(task)">
-    <h2>{{ task.title }}</h2>
-    <p>
-      {{ task.description }}
-    </p>
+<div class="card rounded-md shadow-md p-3 my-2 flex justify-between" *ngIf="task" (dblclick)="edit.emit(task)">
+    <div>
+        <h2>{{ task.title }}</h2>
+        <p>
+        {{ task.description }}
+        </p>
+    </div>
+    <ng-content></ng-content>
 </div>
   
