@@ -1,3 +1,4 @@
+// src/app/task-create/task-create.component.ts
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task/task';
 
@@ -8,9 +9,12 @@ import { Task } from '../task/task';
 })
 export class TaskCreateComponent {
   @Output() taskAdded = new EventEmitter<Task>();
+  newTask: Task = { title: '', description: '', completed: false };
 
-  addTask(newTask: string) {
-    const task: Task = { title: newTask, description: '' };
-    this.taskAdded.emit(task);
+  addTask() {
+    if (this.newTask.title.trim()) {
+      this.taskAdded.emit(this.newTask);
+      this.newTask = { title: '', description: '', completed: false };
+    }
   }
 }
