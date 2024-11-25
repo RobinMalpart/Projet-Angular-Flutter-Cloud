@@ -8,11 +8,11 @@ class TaskList extends StatelessWidget {
   final Function(String taskId) onDeleteTask;
 
   const TaskList({
-    Key? key,
+    super.key,
     required this.tasks,
     required this.onCheckBoxChanged,
     required this.onDeleteTask,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

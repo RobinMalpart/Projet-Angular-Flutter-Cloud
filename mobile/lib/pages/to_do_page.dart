@@ -6,7 +6,7 @@ import 'package:mobile/components/show_toast.dart';
 import 'package:mobile/components/task_list.dart'; // Import the new TaskList component
 
 class ToDo extends StatefulWidget {
-  ToDo({super.key});
+  const ToDo({super.key});
 
   @override
   State<ToDo> createState() => _ToDoState();
@@ -43,11 +43,11 @@ class _ToDoState extends State<ToDo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple.shade300,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Simple Todo'),
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
+        title: const Text('Todo App'),
+        backgroundColor: Colors.lightGreenAccent,
+        foregroundColor: Colors.black,
       ),
       body: StreamBuilder<List<TaskModel>>(
         stream: _taskService.readData(),

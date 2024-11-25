@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Firebase',
       routes: {
-        '/': (context) => ToDo(),
+        '/': (context) => const ToDo(),
       },
     );
   }
