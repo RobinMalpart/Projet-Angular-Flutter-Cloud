@@ -7,11 +7,11 @@ class TaskModel {
 
   TaskModel({this.id, this.content, this.done});
 
-  static TaskModel fromSnapshot(DocumentSnapshot<Map<String, dynamic>> snapshot) {
+  static TaskModel fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
     return TaskModel(
       id: snapshot.id,
-      content: snapshot.data()?['content'] ?? "Nothing to do",
-      done: snapshot.data()?['done'] ?? false,
+      content: snapshot.data()['content'] ?? "Nothing to do",
+      done: snapshot.data()['done'] ?? false,
     );
   }
 
