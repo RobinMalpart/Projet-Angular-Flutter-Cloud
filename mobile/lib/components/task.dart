@@ -40,7 +40,7 @@ class Task extends StatelessWidget {
                 Checkbox(
                   value: taskCompleted,
                   onChanged: onChanged,
-                  checkColor: Colors.black,
+                  checkColor: Colors.teal,
                   activeColor: Colors.white,
                   side: const BorderSide(
                     color: Colors.white,
@@ -49,11 +49,13 @@ class Task extends StatelessWidget {
                 Text(
                   taskName,
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.white, // Text color
                     fontSize: 18,
                     decoration: taskCompleted
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
+                    decorationColor: Colors.white,
+                    decorationThickness: 2,
                   ),
                 ),
               ],
