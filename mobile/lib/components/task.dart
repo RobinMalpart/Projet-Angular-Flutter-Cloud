@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TodoList extends StatelessWidget {
-  const TodoList({
+class Task extends StatelessWidget {
+  const Task({
     super.key,
     required this.taskName,
     required this.taskCompleted,
