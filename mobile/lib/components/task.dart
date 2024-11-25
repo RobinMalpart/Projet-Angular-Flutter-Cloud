@@ -65,7 +65,7 @@ class Task extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.update, color: Colors.white),
                     onPressed: () {
-                      if ( != null) updateFunction!(context);
+                      if (deleteFunction != null) deleteFunction!(context);
                     },
                     tooltip: 'Update Task',
                   ),

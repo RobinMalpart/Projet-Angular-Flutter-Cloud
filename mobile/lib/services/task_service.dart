@@ -4,11 +4,15 @@ import 'package:mobile/models/task_model.dart';
 
 class TaskService {
   final CollectionReference taskCollection =
-      FirebaseFirestore.instance.collection("task");
+  FirebaseFirestore.instance.collection("task");
 
   Stream<List<TaskModel>> readData() {
-    return taskCollection.snapshots().map((querySnapshot) =>
-        querySnapshot.docs.map((e) => TaskModel.fromSnapshot(e)).toList());
+    return taskCollection.snapshots().map((querySnapshot) {
+      return querySnapshot.docs.map((doc) {
+        return TaskModel.fromSnapshot(
+            doc as QueryDocumentSnapshot<Map<String, dynamic>>);
+      }).toList();
+    });
   }
 
   Future<void> createData(TaskModel toDoModel) async {
@@ -24,7 +28,7 @@ class TaskService {
       await taskCollection.doc(id).set(newTask);
       showToast(message: "Data Created Successfully");
     } catch (e) {
-      showToast(message: "Failed to Create Data");
+      showToast(message: "Failed to Create Data: $e");
     }
   }
 
@@ -33,9 +37,9 @@ class TaskService {
       "content": task.content,
       "done": task.done,
     }).then((_) {
-      print("Updated task ${task.id} with content: ${task.content}");
+      showToast(message: "Task Updated Successfully");
     }).catchError((error) {
-      print("Failed to update task: $error");
+      showToast(message: "Failed to Update Task: $error");
     });
   }
 
@@ -43,7 +47,7 @@ class TaskService {
     taskCollection.doc(id).delete().then((_) {
       showToast(message: "Task Deleted Successfully");
     }).catchError((error) {
-      showToast(message: "Failed to delete task: $error");
+      showToast(message: "Failed to Delete Task: $error");
     });
   }
 }
