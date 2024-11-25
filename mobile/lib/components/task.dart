@@ -57,12 +57,28 @@ class Task extends StatelessWidget {
                 ),
               ],
             ),
-            IconButton(
-              icon: const Icon(Icons.delete, color: Colors.white),
-              onPressed: () {
-                if (deleteFunction != null) deleteFunction!(context);
-              },
-              tooltip: 'Delete Task',
+            Container(
+              alignment: Alignment.centerRight,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.update, color: Colors.white),
+                    onPressed: () {
+                      if ( != null) updateFunction!(context);
+                    },
+                    tooltip: 'Update Task',
+                  ),
+                  const SizedBox(width: 8), // Add spacing
+                  IconButton(
+                    icon: const Icon(Icons.delete, color: Colors.white),
+                    onPressed: () {
+                      if (deleteFunction != null) deleteFunction!(context);
+                    },
+                    tooltip: 'Delete Task',
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -4,26 +4,24 @@ import 'package:mobile/models/task_model.dart';
 
 class TaskService {
   final CollectionReference taskCollection =
-  FirebaseFirestore.instance.collection("task");
+      FirebaseFirestore.instance.collection("task");
 
   Stream<List<TaskModel>> readData() {
-    final userCollection = FirebaseFirestore.instance.collection("task");
-    return userCollection.snapshots().map((querySnapshot) =>
+    return taskCollection.snapshots().map((querySnapshot) =>
         querySnapshot.docs.map((e) => TaskModel.fromSnapshot(e)).toList());
   }
 
   Future<void> createData(TaskModel toDoModel) async {
-    final toDoCollection = FirebaseFirestore.instance.collection("task");
-    String id = toDoCollection.doc().id;
+    String id = taskCollection.doc().id;
 
     final newTask = TaskModel(
       id: id,
-      content: toDoModel.content, // Access `content` from the instance
-      done: toDoModel.done, // Access `done` from the instance
+      content: toDoModel.content,
+      done: toDoModel.done,
     ).toJson();
 
     try {
-      await toDoCollection.doc(id).set(newTask);
+      await taskCollection.doc(id).set(newTask);
       showToast(message: "Data Created Successfully");
     } catch (e) {
       showToast(message: "Failed to Create Data");
@@ -31,18 +29,18 @@ class TaskService {
   }
 
   void updateData(TaskModel task) {
-    FirebaseFirestore.instance.collection("task").doc(task.id).update({
+    taskCollection.doc(task.id).update({
+      "content": task.content,
       "done": task.done,
     }).then((_) {
-      print("Updated task ${task.id} with done status: ${task.done}");
+      print("Updated task ${task.id} with content: ${task.content}");
     }).catchError((error) {
       print("Failed to update task: $error");
     });
   }
 
   void deleteTask(String id) {
-    // Immediately update Firestore with the new 'done' status
-    FirebaseFirestore.instance.collection("task").doc(id).delete().then((_) {
+    taskCollection.doc(id).delete().then((_) {
       showToast(message: "Task Deleted Successfully");
     }).catchError((error) {
       showToast(message: "Failed to delete task: $error");
