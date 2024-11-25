@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TaskModel {
   final String? id;
-  final String? content;
+  String? content;
   bool? done;
 
   TaskModel({this.id, this.content, this.done});

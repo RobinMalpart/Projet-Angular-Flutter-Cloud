@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Task extends StatelessWidget {
   const Task({
     super.key,
@@ -7,12 +8,14 @@ class Task extends StatelessWidget {
     required this.taskCompleted,
     required this.onChanged,
     this.deleteFunction,
+    this.updateFunction,
   });
 
   final String taskName;
   final bool taskCompleted;
   final Function(bool?)? onChanged;
   final Function(BuildContext)? deleteFunction;
+  final Function(BuildContext)? updateFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -51,34 +54,27 @@ class Task extends StatelessWidget {
                     decoration: taskCompleted
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
-                    decorationColor: Colors.white,
-                    decorationThickness: 2,
                   ),
                 ),
               ],
             ),
-            Container(
-              alignment: Alignment.centerRight,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.update, color: Colors.white),
-                    onPressed: () {
-                      if (deleteFunction != null) deleteFunction!(context);
-                    },
-                    tooltip: 'Update Task',
-                  ),
-                  const SizedBox(width: 8), // Add spacing
-                  IconButton(
-                    icon: const Icon(Icons.delete, color: Colors.white),
-                    onPressed: () {
-                      if (deleteFunction != null) deleteFunction!(context);
-                    },
-                    tooltip: 'Delete Task',
-                  ),
-                ],
-              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.update, color: Colors.white),
+                  onPressed: () {
+                    if (updateFunction != null) updateFunction!(context);
+                  },
+                  tooltip: 'Update Task',
+                ),
+                IconButton(
+                  icon: const Icon(Icons.delete, color: Colors.white),
+                  onPressed: () {
+                    if (deleteFunction != null) deleteFunction!(context);
+                  },
+                  tooltip: 'Delete Task',
+                ),
+              ],
             ),
           ],
         ),

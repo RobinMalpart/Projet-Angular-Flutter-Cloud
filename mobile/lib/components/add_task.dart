@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class AddTask extends StatelessWidget {
   final TextEditingController controller;
   final VoidCallback onAdd;
+  final String? hintText;
 
   const AddTask({
     super.key,
     required this.controller,
     required this.onAdd,
+    this.hintText,
   });
 
   @override
@@ -16,11 +18,11 @@ class AddTask extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding:  const EdgeInsets.only(left: 40, right: 20),
+            padding: const EdgeInsets.only(left: 40, right: 20),
             child: TextField(
               controller: controller,
               decoration: InputDecoration(
-                hintText: "Add a new task",
+                hintText: hintText ?? "Add a new task",
                 hintStyle: const TextStyle(
                   color: Colors.white,
                 ),
