@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile/components/add_task.dart';
 import 'package:mobile/models/task_model.dart';
 import 'package:mobile/services/task_service.dart';
 import 'package:mobile/components/show_toast.dart';
@@ -18,10 +19,8 @@ class _ToDoState extends State<ToDo> {
 
   void checkBoxChanged(TaskModel task) {
     setState(() {
-      task.done = !(task.done ?? false); // Toggle the done status
+      task.done = !(task.done ?? false);
     });
-
-    // Immediately update Firestore with the new 'done' status
     _taskService.updateData(task);
   }
 
@@ -32,9 +31,8 @@ class _ToDoState extends State<ToDo> {
         done: false,
       );
       _taskService.createData(newTask);
-      _controller.clear(); // Clear the input after saving
+      _controller.clear();
     } else {
-      // Optional: Show a message if the input is empty
       showToast(message: "Please enter a task description");
     }
   }
@@ -49,10 +47,8 @@ class _ToDoState extends State<ToDo> {
         foregroundColor: Colors.white,
       ),
       body: StreamBuilder<List<TaskModel>>(
-        stream:_taskService.readData(),
+        stream: _taskService.readData(),
         builder: (context, snapshot) {
-          // Debug print to confirm if data is received
-          debugPrint('Snapshot data: ${snapshot.data}');
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
@@ -78,38 +74,9 @@ class _ToDoState extends State<ToDo> {
           );
         },
       ),
-      floatingActionButton: Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextField(
-                controller: _controller,
-                decoration: InputDecoration(
-                  hintText: "Add a new todo item",
-                  filled: true,
-                  fillColor: Colors.deepPurple.shade200,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Colors.deepPurple,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: Colors.deepPurple,
-                    ),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          FloatingActionButton(
-            onPressed: _saveNewTask,
-            child: const Icon(Icons.add),
-          ),
-        ],
+      floatingActionButton: AddTask(
+        controller: _controller,
+        onAdd: _saveNewTask,
       ),
     );
   }
