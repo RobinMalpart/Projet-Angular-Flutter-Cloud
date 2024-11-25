@@ -12,21 +12,23 @@ export class AppComponent {
   todo: Task[] = [
     {
       title: 'Buy milk',
-      description: 'Go to the store and buy milk'
+      description: 'Go to the store and buy milk',
+      completed: false
     },
     {
       title: 'Create a Kanban app',
-      description: 'Using Firebase and Angular create a Kanban app!'
+      description: 'Using Firebase and Angular create a Kanban app!',
+      completed: false
     }
   ];
 
   // Propriétés pour le modal d'édition
   isEditModalOpen = false;
   currentTaskIndex: number | null = null;
-  editedTask: Task = { title: '', description: '' };
+  editedTask: Task = { title: '', description: '', completed: false };
 
   addTask(task: Task) {
-    this.todo.push(task);
+    this.todo.push({ ...task, completed: false });
   }
 
   deleteTask(index: number) {
@@ -49,5 +51,9 @@ export class AppComponent {
       this.todo[this.currentTaskIndex] = { ...this.editedTask };
       this.closeEditModal();
     }
+  }
+
+  toggleCompleted(index: number) {
+    this.todo[index].completed = !this.todo[index].completed;
   }
 }
