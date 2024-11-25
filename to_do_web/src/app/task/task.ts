@@ -1,8 +1,6 @@
-// task.ts
+// to_do_web/src/app/task/task.ts
 export interface Task {
-    id?: string;
-    title: string;
-    description: string;
-    completed?: boolean;
-    isEditing?: boolean;
-  }
+  id?: string;
+  content: string;
+  done: boolean;
+}

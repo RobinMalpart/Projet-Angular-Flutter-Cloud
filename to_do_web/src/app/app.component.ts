@@ -1,9 +1,8 @@
-// src/app/app.component.ts
+// to_do_web/src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { Task } from './task/task';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -16,8 +15,8 @@ export class AppComponent implements OnInit {
   todo$!: Observable<Task[]>; // Observable pour les tâches
   isEditModalOpen: boolean = false;
   currentTaskIndex: number | null = null;
-  editedTask: Task = { title: '', description: '', completed: false };
-
+  editedTask: Task = { id: '', content: '', done: false };
+  
   private tasksCollection = collection(this.firestore, 'task');
 
   constructor(private firestore: Firestore) {}
@@ -29,7 +28,7 @@ export class AppComponent implements OnInit {
 
   // Charger les tâches depuis Firestore
   loadTasks() {
-    const q = query(this.tasksCollection, orderBy('title'));
+    const q = query(this.tasksCollection, orderBy('content'));
     this.todo$ = new Observable<Task[]>(observer => {
       getDocs(q).then(snapshot => {
         const tasks: Task[] = [];
@@ -61,7 +60,10 @@ export class AppComponent implements OnInit {
   // Ajouter une nouvelle tâche à Firestore
   async addTask(task: Task) {
     try {
-      const docRef = await addDoc(this.tasksCollection, task);
+      const docRef = await addDoc(this.tasksCollection, {
+        content: task.content,
+        done: task.done
+      });
       console.log('Tâche ajoutée avec ID : ', docRef.id);
       this.loadTasks(); // Recharger les tâches
     } catch (e) {
@@ -72,7 +74,7 @@ export class AppComponent implements OnInit {
   // Supprimer une tâche de Firestore
   async deleteTask(id: string) {
     try {
-      const taskDoc = doc(this.firestore, `tasks/${id}`);
+      const taskDoc = doc(this.firestore, `task/${id}`);
       await deleteDoc(taskDoc);
       console.log('Tâche supprimée avec ID : ', id);
       this.loadTasks(); // Recharger les tâches
@@ -84,7 +86,6 @@ export class AppComponent implements OnInit {
   // Ouvrir le modal d'édition
   openEditModal(task: Task) {
     this.isEditModalOpen = true;
-    this.currentTaskIndex = this.currentTaskIndex; // Maintenir l'index si nécessaire
     this.editedTask = { ...task };
   }
 
@@ -92,11 +93,10 @@ export class AppComponent implements OnInit {
   async saveTask() {
     if (this.editedTask.id) {
       try {
-        const taskDoc = doc(this.firestore, `tasks/${this.editedTask.id}`);
+        const taskDoc = doc(this.firestore, `task/${this.editedTask.id}`);
         await updateDoc(taskDoc, {
-          title: this.editedTask.title,
-          description: this.editedTask.description,
-          completed: this.editedTask.completed
+          content: this.editedTask.content,
+          done: this.editedTask.done
         });
         console.log('Tâche mise à jour avec ID : ', this.editedTask.id);
         this.isEditModalOpen = false;
@@ -117,9 +117,9 @@ export class AppComponent implements OnInit {
   async toggleCompleted(task: Task) {
     if (task.id) {
       try {
-        const taskDoc = doc(this.firestore, `tasks/${task.id}`);
+        const taskDoc = doc(this.firestore, `task/${task.id}`);
         await updateDoc(taskDoc, {
-          completed: !task.completed
+          done: !task.done
         });
         console.log('Statut de la tâche mis à jour pour ID : ', task.id);
         this.loadTasks(); // Recharger les tâches
