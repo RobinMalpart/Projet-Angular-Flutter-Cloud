@@ -15,6 +15,7 @@ class ToDo extends StatefulWidget {
 class _ToDoState extends State<ToDo> {
   final _controller = TextEditingController();
   final TaskService _taskService = TaskService();
+  TaskModel? _currentTask;
 
   void checkBoxChanged(TaskModel task) {
     setState(() {
@@ -25,11 +26,19 @@ class _ToDoState extends State<ToDo> {
 
   void _saveNewTask() {
     if (_controller.text.isNotEmpty) {
-      final newTask = TaskModel(
-        content: _controller.text,
-        done: false,
-      );
-      _taskService.createData(newTask);
+      if (_currentTask != null) {
+        _currentTask!.content = _controller.text;
+        _taskService.updateData(_currentTask!);
+        setState(() {
+          _currentTask = null;
+        });
+      } else {
+        final newTask = TaskModel(
+          content: _controller.text,
+          done: false,
+        );
+        _taskService.createData(newTask);
+      }
       _controller.clear();
     } else {
       showToast(message: "Please enter a task description");
@@ -38,6 +47,13 @@ class _ToDoState extends State<ToDo> {
 
   void deleteTask(String taskId) {
     _taskService.deleteTask(taskId);
+  }
+
+  void updateTask(TaskModel task) {
+    setState(() {
+      _currentTask = task;
+      _controller.text = task.content ?? "";
+    });
   }
 
   @override
@@ -64,11 +80,11 @@ class _ToDoState extends State<ToDo> {
 
           final toDoList = snapshot.data!;
 
-          // Use the TaskList component
           return TaskList(
             tasks: toDoList,
             onCheckBoxChanged: checkBoxChanged,
             onDeleteTask: deleteTask,
+            onUpdateTask: updateTask,
           );
         },
       ),
@@ -79,3 +95,4 @@ class _ToDoState extends State<ToDo> {
     );
   }
 }
+
