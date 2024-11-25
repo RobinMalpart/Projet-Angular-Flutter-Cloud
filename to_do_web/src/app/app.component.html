@@ -11,6 +11,12 @@
 <div class="container mx-auto" role="main">
   <!-- Main content -->
   <app-task *ngFor="let task of todo; let i = index" [task]="task">
+    <input
+    type="checkbox"
+    [(ngModel)]="task.completed"
+    (change)="toggleCompleted(i)"
+    class="mr-2"
+  />
     <div class="">
       <button (click)="deleteTask(i)" class="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-700 h-full me-2">
         Delete
