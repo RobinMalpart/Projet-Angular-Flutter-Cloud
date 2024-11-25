@@ -16,22 +16,25 @@ class AddTask extends StatelessWidget {
       children: [
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding:  const EdgeInsets.only(left: 40, right: 20),
             child: TextField(
               controller: controller,
               decoration: InputDecoration(
-                hintText: "Add a new todo item",
+                hintText: "Add a new task",
+                hintStyle: const TextStyle(
+                  color: Colors.white,
+                ),
                 filled: true,
-                fillColor: Colors.deepPurple.shade200,
+                fillColor: Colors.teal[200],
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
-                    color: Colors.deepPurple,
+                    color: Colors.teal,
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
-                    color: Colors.deepPurple,
+                    color: Colors.teal,
                   ),
                   borderRadius: BorderRadius.circular(15),
                 ),
@@ -40,6 +43,8 @@ class AddTask extends StatelessWidget {
           ),
         ),
         FloatingActionButton(
+          backgroundColor: Colors.lightGreenAccent,
+          foregroundColor: Colors.black,
           onPressed: onAdd,
           child: const Icon(Icons.add),
         ),
