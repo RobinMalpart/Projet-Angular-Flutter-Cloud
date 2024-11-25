@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile/components/add_task.dart';
 import 'package:mobile/models/task_model.dart';
 import 'package:mobile/services/task_service.dart';
 import 'package:mobile/components/show_toast.dart';
-import 'package:mobile/components/to_do_list.dart';
+import 'package:mobile/components/task_list.dart'; // Import the new TaskList component
 
 class ToDo extends StatefulWidget {
   ToDo({super.key});
@@ -37,6 +36,10 @@ class _ToDoState extends State<ToDo> {
     }
   }
 
+  void deleteTask(String taskId) {
+    _taskService.deleteTask(taskId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +52,6 @@ class _ToDoState extends State<ToDo> {
       body: StreamBuilder<List<TaskModel>>(
         stream: _taskService.readData(),
         builder: (context, snapshot) {
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -62,15 +64,11 @@ class _ToDoState extends State<ToDo> {
 
           final toDoList = snapshot.data!;
 
-          return ListView(
-            children: toDoList.map((task) {
-              return TodoList(
-                taskName: task.content ?? "Unnamed Task",
-                taskCompleted: task.done ?? false,
-                onChanged: (value) => checkBoxChanged(task),
-                deleteFunction: (value) => _taskService.deleteTask(task.id!),
-              );
-            }).toList(),
+          // Use the TaskList component
+          return TaskList(
+            tasks: toDoList,
+            onCheckBoxChanged: checkBoxChanged,
+            onDeleteTask: deleteTask,
           );
         },
       ),
