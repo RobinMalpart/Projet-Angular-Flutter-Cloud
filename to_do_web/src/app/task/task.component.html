@@ -1,1 +1,7 @@
-<p>task works!</p>
+<div class="card rounded-md shadow-md p-3 my-2" *ngIf="task" (dblclick)="edit.emit(task)">
+    <h2>{{ task.title }}</h2>
+    <p>
+      {{ task.description }}
+    </p>
+</div>
+  
