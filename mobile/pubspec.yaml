@@ -39,6 +39,8 @@ dependencies:
   firebase_storage:
   fluttertoast:
   cloud_firestore:
+  firebase_auth:
+  logger:
 
 dev_dependencies:
   flutter_test:

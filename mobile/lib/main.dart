@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:mobile/pages/login_page.dart';
+import 'package:mobile/pages/signup_page.dart';
 import 'package:mobile/pages/to_do_page.dart';
 import 'firebase_options.dart';
 
@@ -20,7 +22,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Firebase',
       routes: {
-        '/': (context) => const ToDo(),
+        '/': (context) => const LoginPage(),
+        '/signUp': (context) => const SignUpPage(),
+        '/toDo': (context) => const ToDo(),
       },
     );
   }
