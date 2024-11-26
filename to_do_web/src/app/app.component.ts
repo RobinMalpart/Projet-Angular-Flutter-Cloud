@@ -73,8 +73,10 @@ export class AppComponent implements OnInit {
 
   // Supprimer une tâche de Firestore
   async deleteTask(id: string) {
+    console.log('Launch delete task ID : ', id);
     try {
-      const taskDoc = doc(this.firestore, `task/${id}`);
+      // Correction du chemin d'accès au document
+      const taskDoc = doc(this.tasksCollection, id);
       await deleteDoc(taskDoc);
       console.log('Tâche supprimée avec ID : ', id);
       this.loadTasks(); // Recharger les tâches
