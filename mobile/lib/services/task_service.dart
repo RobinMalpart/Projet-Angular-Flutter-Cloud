@@ -28,7 +28,7 @@ class TaskService {
       await taskCollection.doc(id).set(newTask);
       showToast(message: "Data Created Successfully");
     } catch (e) {
-      showToast(message: "Failed to Create Data: $e");
+      showToast(message: "Oops an error occurred!");
     }
   }
 
@@ -39,7 +39,7 @@ class TaskService {
     }).then((_) {
       showToast(message: "Task Updated Successfully");
     }).catchError((error) {
-      showToast(message: "Failed to Update Task: $error");
+      showToast(message: "Oops an error occurred!");
     });
   }
 
@@ -47,7 +47,7 @@ class TaskService {
     taskCollection.doc(id).delete().then((_) {
       showToast(message: "Task Deleted Successfully");
     }).catchError((error) {
-      showToast(message: "Failed to Delete Task: $error");
+      showToast(message: "Oops an error occurred!");
     });
   }
 }

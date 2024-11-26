@@ -27,7 +27,7 @@ class AddTask extends StatelessWidget {
                   color: Colors.white,
                 ),
                 filled: true,
-                fillColor: Colors.teal[200],
+                fillColor: Colors.grey[400],
                 enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(
                     color: Colors.teal,
