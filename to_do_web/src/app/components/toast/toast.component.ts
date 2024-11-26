@@ -21,7 +21,7 @@ export class ToastComponent implements OnInit {
     this.toastService.getToasts().subscribe(toast => {
       this.toasts.push({ ...toast, show: true });
       // Auto-dismiss 3 sec
-      setTimeout(() => this.removeToast(toast.id), 2000);
+      setTimeout(() => this.removeToast(toast.id), 500);
     });
   }
 

@@ -11,6 +11,10 @@ import { TaskComponent } from './task/task.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { HeaderComponent } from './header/header.component';
 import { ToastComponent } from './components/toast/toast.component';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,10 @@ import { ToastComponent } from './components/toast/toast.component';
     TaskComponent,
     TaskCreateComponent,
     HeaderComponent,
-    ToastComponent
+    ToastComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +33,7 @@ import { ToastComponent } from './components/toast/toast.component';
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth())
   ],
   providers: [],
   bootstrap: [AppComponent]
