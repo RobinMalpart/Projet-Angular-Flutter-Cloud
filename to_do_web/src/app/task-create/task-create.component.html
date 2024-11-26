@@ -1,12 +1,14 @@
 <!-- to_do_web/src/app/task-create/task-create.component.html -->
-<div class="flex items-center space-x-4 mb-10">
-  <input
-    [(ngModel)]="newTaskContent"
-    type="text"
-    placeholder="Enter a new task"
-    class="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-  />
-  <button (click)="addTask()" class="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-700">
-    Add task
-  </button>
+<div class="fixed bottom-0 left-0 right-0 bg-white p-4">
+  <div class="flex items-center space-x-4 mb-10">
+    <input
+      [(ngModel)]="newTaskContent"
+      type="text"
+      placeholder="Enter a new task"
+      class="flex-grow px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-[#dedede] text-[#828282]"
+    />
+    <button (click)="addTask()" class="px-4 py-2 font-semibold text-black bg-[#b2ff59] rounded hover:bg-[#9eea4f]">
+      Add task
+    </button>
+  </div>
 </div>
