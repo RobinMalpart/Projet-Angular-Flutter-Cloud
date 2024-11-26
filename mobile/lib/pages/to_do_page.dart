@@ -77,6 +77,7 @@ class _ToDoState extends State<ToDo> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('ToDo App'),
         backgroundColor: Colors.lightGreenAccent,
         foregroundColor: Colors.grey[700],
