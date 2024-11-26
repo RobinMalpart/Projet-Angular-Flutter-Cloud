@@ -6,7 +6,7 @@ class TaskList extends StatelessWidget {
   final List<TaskModel> tasks;
   final Function(TaskModel task) onCheckBoxChanged;
   final Function(String taskId) onDeleteTask;
-  final Function(TaskModel task) onUpdateTask; // Added
+  final Function(TaskModel task) onUpdateTask;
 
   const TaskList({
     super.key,

@@ -45,7 +45,7 @@ class FirebaseAuthService {
       await _auth.signOut();
       showToast(message: 'Successfully signed out.');
     } catch (e) {
-      showToast(message: 'Opps an error occurred!');
+      showToast(message: 'Oops an error occurred!');
     }
   }
 }

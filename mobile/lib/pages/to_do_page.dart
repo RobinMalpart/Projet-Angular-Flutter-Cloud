@@ -100,8 +100,12 @@ class _ToDoState extends State<ToDo> {
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(child: Text("No Data Available"));
           }
-
-          final toDoList = snapshot.data!;
+          final toDoList = snapshot.data!..sort((a, b) {
+            if (a.done == b.done) {
+              return (a.content ?? '').compareTo(b.content ?? '');
+            }
+            return a.done == false ? -1 : 1;
+          });
 
           return TaskList(
             tasks: toDoList,
