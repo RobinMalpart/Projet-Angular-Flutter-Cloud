@@ -63,7 +63,7 @@ class Task extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.update, color: Colors.white),
+                  icon: const Icon(Icons.edit, color: Colors.white),
                   onPressed: () {
                     if (updateFunction != null) updateFunction!(context);
                   },
