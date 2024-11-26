@@ -8,11 +8,18 @@
   />
   <span [class.line-through]="task.done">{{ task.content }}</span>
   <div class="ml-auto">
-    <button (click)="onDelete()" class="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-700 me-2">
-      Delete
-    </button>
-    <button (click)="onEdit()" class="px-2 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-700">
-      Edit
-    </button>
+    <div class="ml-auto flex items-center space-x-2">
+      <img
+        src="assets/dustbin.png"
+        alt="Delete"
+        (click)="onDelete()"
+        class="w-6 h-6 cursor-pointer"
+      />
+      <img
+      src="assets/edit.png"
+      alt="Edit"
+      (click)="onEdit()"
+      class="w-6 h-6 cursor-pointer"
+    />
   </div>
 </div>
