@@ -1,32 +1,33 @@
-<style>
-
-</style>
-
-<!-- Header -->
-<div class="toolbar" role="banner">
- 
-</div>
-
-<!-- app.component.html -->
+<!-- src/app/app.component.html -->
 <div class="container mx-auto" role="main">
   <!-- Main content -->
-  <app-task *ngFor="let task of todo; let i = index" [task]="task">
-    <input
-    type="checkbox"
-    [(ngModel)]="task.completed"
-    (change)="toggleCompleted(i)"
-    class="mr-2"
-  />
-    <div class="">
-      <button (click)="deleteTask(i)" class="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-700 h-full me-2">
-        Delete
-      </button>
-      <button (click)="openEditModal(i)" class="px-2 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-700 h-full">
-        Edit
-      </button>
-    </div>
-  </app-task>
+  <ng-container *ngIf="todo$ | async as todo; else loading">
+    <app-task *ngFor="let task of todo" [task]="task">
+      <div class="flex items-center">
+        <input
+          type="checkbox"
+          [(ngModel)]="task.done"
+          (change)="toggleCompleted(task)"
+          class="mr-2"
+        />
+        <span [class.line-through]="task.done">{{ task.content }}</span>
+        <div class="ml-auto">
+          <button (click)="deleteTask(task.id!)" class="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-700 me-2">
+            Delete
+          </button>
+          <button (click)="openEditModal(task)" class="px-2 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-700">
+            Edit
+          </button>
+        </div>
+      </div>
+    </app-task>
+  </ng-container>
+  <ng-template #loading>
+    <p>Chargement des tâches...</p>
+  </ng-template>
+  
   <app-task-create (taskAdded)="addTask($event)"></app-task-create>
+  
   <!-- Footer -->
   <footer>
   </footer>
@@ -38,11 +39,7 @@
     <h2 class="text-xl mb-4">Edit Task</h2>
     <div class="mb-4">
       <label class="block text-gray-700">Title</label>
-      <input [(ngModel)]="editedTask.title" type="text" class="w-full px-3 py-2 border rounded" />
-    </div>
-    <div class="mb-4">
-      <label class="block text-gray-700">Description</label>
-      <textarea [(ngModel)]="editedTask.description" class="w-full px-3 py-2 border rounded"></textarea>
+      <input [(ngModel)]="editedTask.content" type="text" class="w-full px-3 py-2 border rounded" />
     </div>
     <div class="flex justify-end space-x-2">
       <button (click)="saveTask()" class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-700">

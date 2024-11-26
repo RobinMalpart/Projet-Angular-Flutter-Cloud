@@ -1,3 +1,4 @@
+// to_do_web/src/app/task-create/task-create.component.ts
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task/task';
 
@@ -7,10 +8,17 @@ import { Task } from '../task/task';
   styleUrls: ['./task-create.component.css']
 })
 export class TaskCreateComponent {
+  newTaskContent: string = '';
   @Output() taskAdded = new EventEmitter<Task>();
 
-  addTask(newTask: string) {
-    const task: Task = { title: newTask, description: '' };
-    this.taskAdded.emit(task);
+  addTask() {
+    if (this.newTaskContent.trim()) {
+      const task: Task = {
+        content: this.newTaskContent.trim(),
+        done: false
+      };
+      this.taskAdded.emit(task);
+      this.newTaskContent = '';
+    }
   }
 }

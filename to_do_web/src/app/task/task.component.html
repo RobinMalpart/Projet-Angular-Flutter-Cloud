@@ -1,10 +1,18 @@
-<div class="card rounded-md shadow-md p-3 my-2 flex justify-between" *ngIf="task" (dblclick)="edit.emit(task)">
-    <div>
-        <h2>{{ task.title }}</h2>
-        <p>
-        {{ task.description }}
-        </p>
-    </div>
-    <ng-content></ng-content>
+<!-- src/app/task/task.component.html -->
+<div class="flex items-center">
+  <input
+    type="checkbox"
+    [(ngModel)]="task.done"
+    (change)="onToggle()"
+    class="mr-2"
+  />
+  <span [class.line-through]="task.done">{{ task.content }}</span>
+  <div class="ml-auto">
+    <button (click)="onDelete()" class="px-2 py-1 text-white bg-red-500 rounded hover:bg-red-700 me-2">
+      Delete
+    </button>
+    <button (click)="onEdit()" class="px-2 py-1 text-white bg-yellow-500 rounded hover:bg-yellow-700">
+      Edit
+    </button>
+  </div>
 </div>
-  
