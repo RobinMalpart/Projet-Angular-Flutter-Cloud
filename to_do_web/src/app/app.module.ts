@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
 import { HeaderComponent } from './header/header.component';
+import { ToastComponent } from './components/toast/toast.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
     TaskCreateComponent,
-    HeaderComponent
+    HeaderComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,

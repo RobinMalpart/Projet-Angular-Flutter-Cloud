@@ -1,0 +1,39 @@
+<!-- src/app/components/toast/toast.component.html -->
+<div class="fixed bottom-5 right-5 space-y-4 z-50 w-80">
+  <div *ngFor="let toast of toasts"
+       [ngClass]="{
+         'transform transition duration-300 ease-in-out': true,
+         'translate-y-0 opacity-100': toast.show,
+         '-translate-y-4 opacity-0': !toast.show
+       }"
+       class="max-w-xs w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5">
+    <div class="flex-1 w-0 p-4">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 pt-0.5">
+          <!-- Icône en fonction du type de toast -->
+          <svg *ngIf="toast.type === 'success'" class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <svg *ngIf="toast.type === 'error'" class="h-6 w-6 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          <svg *ngIf="toast.type === 'info'" class="h-6 w-6 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01" />
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
+          </svg>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-medium text-gray-900">{{ toast.message }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="flex border-l border-gray-200">
+      <button (click)="removeToast(toast.id)" class="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-gray-500 hover:text-gray-700 focus:outline-none">
+        <!-- Icône de fermeture -->
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
