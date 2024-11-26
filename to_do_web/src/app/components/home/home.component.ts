@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadTasks();
     this.testFirestoreConnection();
   }
 
@@ -50,17 +49,19 @@ export class HomeComponent implements OnInit {
     if (!this.currentUser) {
       return;
     }
-    const tasksCollection = collection(this.firestore, 'task');
+    console.log('Chargement des tâches pour l\'utilisateur : ', this.currentUser.uid);
+    const tasksCollection = collection(this.firestore, 'task'); // Assurez-vous du nom correct
     const q = query(
       tasksCollection,
-      where('userId', '==', this.currentUser.uid),
-      orderBy('content')
+      where('userId', '==', this.currentUser.uid)
+      // orderBy('content') // Commenté pour tester le filtrage
     );
     this.todo$ = new Observable<Task[]>(observer => {
       getDocs(q).then(snapshot => {
         const tasks: Task[] = [];
         snapshot.forEach(docSnap => {
           const data = docSnap.data() as Task;
+          console.log('Tâche récupérée :', data); // Log des données
           tasks.push({ id: docSnap.id, ...data });
         });
         observer.next(tasks);
@@ -95,7 +96,7 @@ export class HomeComponent implements OnInit {
     }
     try {
       const docRef = await addDoc(this.tasksCollection, {
-        content: task.content,
+        content: task.content,  
         done: task.done,
         userId: this.currentUser.uid
       });
