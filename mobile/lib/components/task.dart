@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Task extends StatelessWidget {
   const Task({
     super.key,
@@ -34,31 +33,40 @@ class Task extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Checkbox(
-                  value: taskCompleted,
-                  onChanged: onChanged,
-                  checkColor: Colors.teal,
-                  activeColor: Colors.white,
-                  side: const BorderSide(
-                    color: Colors.white,
+            // Checkbox and Text
+            Expanded(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Checkbox(
+                    value: taskCompleted,
+                    onChanged: onChanged,
+                    checkColor: Colors.teal,
+                    activeColor: Colors.white,
+                    side: const BorderSide(
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                Text(
-                  taskName,
-                  style: TextStyle(
-                    color: Colors.white, // Text color
-                    fontSize: 18,
-                    decoration: taskCompleted
-                        ? TextDecoration.lineThrough
-                        : TextDecoration.none,
-                    decorationColor: Colors.white,
-                    decorationThickness: 2,
+                  Expanded(
+                    child: Text(
+                      taskName,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        decoration: taskCompleted
+                            ? TextDecoration.lineThrough
+                            : TextDecoration.none,
+                        decorationColor: Colors.white,
+                        decorationThickness: 2,
+                      ),
+                      maxLines: 5,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Row(
               children: [
