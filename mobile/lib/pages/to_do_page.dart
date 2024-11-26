@@ -72,7 +72,6 @@ class _ToDoState extends State<ToDo> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
