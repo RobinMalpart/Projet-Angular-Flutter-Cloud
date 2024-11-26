@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:mobile/components/add_task.dart';
 import 'package:mobile/models/task_model.dart';
+import 'package:mobile/services/firebase_auth.dart';
 import 'package:mobile/services/task_service.dart';
 import 'package:mobile/components/show_toast.dart';
 import 'package:mobile/components/task_list.dart';
+
+var logger = Logger();
 
 class ToDo extends StatefulWidget {
   const ToDo({super.key});
@@ -56,14 +60,34 @@ class _ToDoState extends State<ToDo> {
     });
   }
 
+  void _logout(BuildContext context) async {
+    final FirebaseAuthService authService = FirebaseAuthService();
+    try {
+      await authService.signOut();
+      if (context.mounted) {
+        Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+      }
+    } catch (e) {
+      logger.e('An error occurred while logging out: $e');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Todo App'),
+        title: const Text('ToDo App'),
         backgroundColor: Colors.lightGreenAccent,
         foregroundColor: Colors.grey[700],
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: 'Logout',
+            onPressed: () => _logout(context),
+          ),
+        ],
       ),
       body: StreamBuilder<List<TaskModel>>(
         stream: _taskService.readData(),

@@ -22,22 +22,18 @@ class AddTask extends StatelessWidget {
             child: TextField(
               controller: controller,
               decoration: InputDecoration(
-                border: InputBorder.none,
+                border: InputBorder.none, // Remove visible border
                 filled: true,
+                fillColor: Colors.grey.withOpacity(0.35),
                 hintStyle: const TextStyle(color: Colors.black45),
                 hintText: hintText ?? "Add a new task",
-                fillColor: Colors.grey[400],
                 enabledBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.teal,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                    color: Colors.teal,
-                  ),
-                  borderRadius: BorderRadius.circular(15),
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(10),
                 ),
               ),
             ),
