@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TaskComponent } from './task/task.component';
 import { TaskCreateComponent } from './task-create/task-create.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
-    TaskCreateComponent
+    TaskCreateComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
