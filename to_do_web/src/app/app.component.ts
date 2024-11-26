@@ -1,8 +1,9 @@
-// to_do_web/src/app/app.component.ts
+// src/app/app.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { Task } from './task/task';
 import { Observable } from 'rxjs';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent implements OnInit {
   
   private tasksCollection = collection(this.firestore, 'task');
 
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore, private toastService: ToastService) {} 
 
   ngOnInit() {
     this.loadTasks();
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
         observer.complete();
       }).catch(error => {
         observer.error(error);
+        this.toastService.showToast('error', 'Erreur lors du chargement des tâches.');
       });
     });
   }
@@ -52,8 +54,10 @@ export class AppComponent implements OnInit {
         console.log(`${doc.id} =>`, doc.data());
       });
       console.log('Connexion à Firestore réussie.');
+      this.toastService.showToast('success', 'Connexion à Firestore réussie.');
     } catch (error) {
       console.error('Erreur de connexion à Firestore :', error);
+      this.toastService.showToast('error', 'Erreur de connexion à Firestore.');
     }
   }
 
@@ -65,22 +69,26 @@ export class AppComponent implements OnInit {
         done: task.done
       });
       console.log('Tâche ajoutée avec ID : ', docRef.id);
+      this.toastService.showToast('success', 'Tâche ajoutée avec succès!');
       this.loadTasks(); // Reload Task
     } catch (e) {
       console.error('Erreur lors de l\'ajout de la tâche : ', e);
+      this.toastService.showToast('error', 'Erreur lors de l\'ajout de la tâche.');
     }
   }
 
-  // Del Task
+  // Delete Task
   async deleteTask(id: string) {
     console.log('Launch delete task ID : ', id);
     try {
       const taskDoc = doc(this.tasksCollection, id);
       await deleteDoc(taskDoc);
       console.log('Tâche supprimée avec ID : ', id);
+      this.toastService.showToast('success', 'Tâche supprimée avec succès!');
       this.loadTasks(); // Reload Task
     } catch (e) {
       console.error('Erreur lors de la suppression de la tâche : ', e);
+      this.toastService.showToast('error', 'Erreur lors de la suppression de la tâche.');
     }
   }
 
@@ -100,10 +108,12 @@ export class AppComponent implements OnInit {
           done: this.editedTask.done
         });
         console.log('Tâche mise à jour avec ID : ', this.editedTask.id);
+        this.toastService.showToast('success', 'Tâche mise à jour avec succès!');
         this.isEditModalOpen = false;
         this.loadTasks(); // Reload Task
       } catch (e) {
         console.error('Erreur lors de la mise à jour de la tâche : ', e);
+        this.toastService.showToast('error', 'Erreur lors de la mise à jour de la tâche.');
       }
     }
   }
@@ -112,6 +122,7 @@ export class AppComponent implements OnInit {
   closeEditModal() {
     this.isEditModalOpen = false;
     this.currentTaskIndex = null;
+    this.toastService.showToast('info', 'Modification annulée.');
   }
 
   // Switch Task Status 
@@ -123,9 +134,11 @@ export class AppComponent implements OnInit {
           done: task.done
         });
         console.log('Statut de la tâche mis à jour pour ID : ', task.id);
+        this.toastService.showToast('info', 'Statut de la tâche mis à jour.');
         this.loadTasks(); // Reload Task
       } catch (e) {
         console.error('Erreur lors de la mise à jour du statut de la tâche : ', e);
+        this.toastService.showToast('error', 'Erreur lors de la mise à jour du statut.');
       }
     }
   }
