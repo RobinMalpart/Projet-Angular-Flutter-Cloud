@@ -1,0 +1,47 @@
+<!-- src/app/components/home/home.component.html -->
+<div *ngIf="currentUser; else notLoggedIn" class="container mx-auto flex h-full flex-col" role="main">
+  <div>
+    <ng-container *ngIf="todo$ | async as todo; else loading">
+      <app-task
+        *ngFor="let task of todo"
+        [task]="task"
+        (deleteTask)="deleteTask($event)"
+        (editTask)="openEditModal($event)"
+        (toggleTask)="toggleCompleted($event)"
+      ></app-task>
+    </ng-container>
+    <ng-template #loading>
+      <p>Chargement des tâches...</p>
+    </ng-template>
+  </div>
+  
+  <app-task-create (taskAdded)="addTask($event)"></app-task-create>
+</div>
+
+<ng-template #notLoggedIn>
+  <p>Veuillez vous <a routerLink="/login">connecter</a> pour accéder à vos tâches.</p>
+</ng-template>
+
+<!-- Modal Edit Task -->
+<div *ngIf="isEditModalOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white p-6 rounded shadow-lg w-1/3">
+      <h2 class="text-xl mb-4">Edit Task</h2>
+      <div class="mb-4">
+        <label class="block text-gray-700">Content</label>
+        <input [(ngModel)]="editedTask.content" type="text" class="w-full px-3 py-2 border rounded" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700">Done</label>
+        <input type="checkbox" [(ngModel)]="editedTask.done" />
+      </div>
+      <div class="flex justify-end space-x-2">
+        <button (click)="saveTask()" class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-700">
+          Save
+        </button>
+        <button (click)="closeEditModal()" class="px-4 py-2 text-white bg-gray-500 rounded hover:bg-gray-700">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  
