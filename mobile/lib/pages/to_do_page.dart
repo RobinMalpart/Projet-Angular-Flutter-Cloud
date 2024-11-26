@@ -3,7 +3,7 @@ import 'package:mobile/components/add_task.dart';
 import 'package:mobile/models/task_model.dart';
 import 'package:mobile/services/task_service.dart';
 import 'package:mobile/components/show_toast.dart';
-import 'package:mobile/components/task_list.dart'; // Import the new TaskList component
+import 'package:mobile/components/task_list.dart';
 
 class ToDo extends StatefulWidget {
   const ToDo({super.key});
@@ -63,7 +63,7 @@ class _ToDoState extends State<ToDo> {
       appBar: AppBar(
         title: const Text('Todo App'),
         backgroundColor: Colors.lightGreenAccent,
-        foregroundColor: Colors.black,
+        foregroundColor: Colors.grey[700],
       ),
       body: StreamBuilder<List<TaskModel>>(
         stream: _taskService.readData(),
