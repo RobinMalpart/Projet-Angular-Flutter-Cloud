@@ -1,4 +1,4 @@
-// src/app/task/task.component.ts
+// to_do_web/src/app/task/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task/task';
 
@@ -10,19 +10,19 @@ import { Task } from '../task/task';
 export class TaskComponent {
   @Input() task!: Task;
 
-  @Output() delete = new EventEmitter<string>();
-  @Output() edit = new EventEmitter<Task>();
-  @Output() toggle = new EventEmitter<Task>();
+  @Output() deleteTask = new EventEmitter<string>();
+  @Output() editTask = new EventEmitter<Task>();
+  @Output() toggleTask = new EventEmitter<Task>();
 
   onDelete() {
-    this.delete.emit(this.task.id!);
+    this.deleteTask.emit(this.task.id!);
   }
 
   onEdit() {
-    this.edit.emit(this.task);
+    this.editTask.emit(this.task);
   }
 
   onToggle() {
-    this.toggle.emit(this.task);
+    this.toggleTask.emit(this.task);
   }
 }
