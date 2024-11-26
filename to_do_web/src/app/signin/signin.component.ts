@@ -1,0 +1,69 @@
+import { Component } from '@angular/core';
+import {
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
+
+@Component({
+  standalone: true,
+  selector: 'app-signin',
+  imports: [ReactiveFormsModule, CommonModule],
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.css'],
+})
+export class SigninComponent {
+  signInForm: FormGroup<{
+    email: FormControl<string>;
+    password: FormControl<string>;
+  }>;
+
+  error: string = '';
+  loading: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
+    this.signInForm = this.fb.nonNullable.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
+  }
+
+  async onSubmit() {
+    if (this.signInForm.valid) {
+      const email = this.signInForm.get('email')?.value;
+      const password = this.signInForm.get('password')?.value;
+
+      if (email && password) {
+        this.loading = true;
+        this.error = '';
+
+        try {
+          await this.authService.signIn(email, password);
+          console.log('Sign-In successful');
+          this.router.navigate(['/home']);
+        } catch (error: any) {
+          console.error('Sign-In error:', error);
+
+          if (error?.code === 'auth/invalid-credential') {
+            this.error = 'No account found with this email or password.';
+          } else {
+            this.error = error?.message || 'An unexpected error occurred.';
+          }
+        } finally {
+          this.loading = false;
+        }
+      }
+    } else {
+      this.error = 'Please fill out the form correctly.';
+    }
+  }
+}
