@@ -42,15 +42,17 @@ class TaskService {
       content: toDoModel.content,
       done: toDoModel.done,
       userId: userId,
+      date: Timestamp.now(),
     ).toJson();
 
     try {
-      await taskCollection.doc(id).set(newTask);
+      await taskCollection.doc(id).set(newTask); // Save the task to Firestore
       showToast(message: "Data Created Successfully");
     } catch (e) {
       showToast(message: "Oops, an error occurred!");
     }
   }
+
 
   void updateData(TaskModel task) {
     taskCollection.doc(task.id).update({

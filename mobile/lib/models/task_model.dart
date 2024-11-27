@@ -5,8 +5,9 @@ class TaskModel {
   String? content;
   bool? done;
   String? userId;
+  Timestamp? date;
 
-  TaskModel({this.id, this.content, this.done, this.userId});
+  TaskModel({this.id, this.content, this.done, this.userId, this.date});
 
   static TaskModel fromSnapshot(QueryDocumentSnapshot<Map<String, dynamic>> snapshot) {
     return TaskModel(
@@ -14,6 +15,7 @@ class TaskModel {
       content: snapshot.data()['content'] ?? "Nothing to do",
       done: snapshot.data()['done'] ?? false,
       userId: snapshot.data()['userId'],
+      date: snapshot.data()['date'],
     );
   }
 
@@ -22,7 +24,8 @@ class TaskModel {
       "id": id,
       "content": content,
       "done": done,
-      "userId": userId
+      "userId": userId,
+      "date": date,
     };
   }
 }
