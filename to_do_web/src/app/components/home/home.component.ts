@@ -1,4 +1,3 @@
-// src/app/components/home/home.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc, getDocs, query, orderBy } from '@angular/fire/firestore';
 import { Task } from '../../task/task';
@@ -17,18 +16,17 @@ import { where } from 'firebase/firestore';
 export class HomeComponent implements OnInit {
   title = 'ToDo_Web';
   currentUser: User | null = null;
+  tasksCollection = collection(this.firestore, 'task');
   
   todo$!: Observable<Task[]>;
   isEditModalOpen: boolean = false;
   currentTaskIndex: number | null = null;
   editedTask: Task = { id: '', content: '', done: false };
-  
-  private tasksCollection = collection(this.firestore, 'task');
 
   constructor(
     private firestore: Firestore,
     private toastService: ToastService,
-    private authService: AuthService
+    private authService: AuthService,
   ) {
     this.authService.user$.subscribe(user => {
       this.currentUser = user;
@@ -41,7 +39,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.testFirestoreConnection();
   }
 
   // Load Tasks
@@ -50,18 +47,15 @@ export class HomeComponent implements OnInit {
       return;
     }
     console.log('Chargement des tâches pour l\'utilisateur : ', this.currentUser.uid);
-    const tasksCollection = collection(this.firestore, 'task'); // Assurez-vous du nom correct
-    const q = query(
-      tasksCollection,
-      where('userId', '==', this.currentUser.uid)
-      // orderBy('content') // Commenté pour tester le filtrage
+    const q = query(this.tasksCollection,  where('userId', '==', this.currentUser.uid)
     );
     this.todo$ = new Observable<Task[]>(observer => {
+      
       getDocs(q).then(snapshot => {
         const tasks: Task[] = [];
         snapshot.forEach(docSnap => {
           const data = docSnap.data() as Task;
-          console.log('Tâche récupérée :', data); // Log des données
+          console.log('Tâche récupérée :', data);
           tasks.push({ id: docSnap.id, ...data });
         });
         observer.next(tasks);
@@ -71,21 +65,6 @@ export class HomeComponent implements OnInit {
         this.toastService.showToast('error', 'Erreur lors du chargement des tâches.');
       });
     });
-  }
-
-  // Test Firestore Connection
-  async testFirestoreConnection() {
-    try {
-      const tasksSnapshot = await getDocs(this.tasksCollection);
-      tasksSnapshot.forEach(doc => {
-        console.log(`${doc.id} =>`, doc.data());
-      });
-      console.log('Connexion à Firestore réussie.');
-      this.toastService.showToast('success', 'Connexion à Firestore réussie.');
-    } catch (error) {
-      console.error('Erreur de connexion à Firestore :', error);
-      this.toastService.showToast('error', 'Erreur de connexion à Firestore.');
-    }
   }
 
   // Add Task
@@ -145,7 +124,7 @@ export class HomeComponent implements OnInit {
         console.log('Tâche mise à jour avec ID : ', this.editedTask.id);
         this.toastService.showToast('success', 'Tâche mise à jour avec succès!');
         this.isEditModalOpen = false;
-        this.loadTasks(); // Reload Task
+        this.loadTasks();
       } catch (e) {
         console.error('Erreur lors de la mise à jour de la tâche : ', e);
         this.toastService.showToast('error', 'Erreur lors de la mise à jour de la tâche.');
@@ -170,7 +149,7 @@ export class HomeComponent implements OnInit {
         });
         console.log('Statut de la tâche mis à jour pour ID : ', task.id);
         this.toastService.showToast('info', 'Statut de la tâche mis à jour.');
-        this.loadTasks(); // Reload Task
+        this.loadTasks();
       } catch (e) {
         console.error('Erreur lors de la mise à jour du statut de la tâche : ', e);
         this.toastService.showToast('error', 'Erreur lors de la mise à jour du statut.');

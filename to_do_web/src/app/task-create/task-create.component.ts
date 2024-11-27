@@ -1,4 +1,3 @@
-// to_do_web/src/app/task-create/task-create.component.ts
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task/task';
 import { AuthService } from '../services/auth.service';
