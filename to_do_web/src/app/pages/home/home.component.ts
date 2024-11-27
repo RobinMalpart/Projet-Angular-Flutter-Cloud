@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc, getDocs, query, orderBy } from '@angular/fire/firestore';
-import { Task } from '../../task/task';
 import { Observable } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '@angular/fire/auth';
 import { where } from 'firebase/firestore';
 import { RouterModule } from '@angular/router';
+import { Task } from 'src/app/components/task/task';
 
 @Component({
   selector: 'app-home',

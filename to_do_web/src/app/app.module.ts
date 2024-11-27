@@ -7,14 +7,14 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TaskComponent } from './task/task.component';
-import { TaskCreateComponent } from './task-create/task-create.component';
+import { TaskCreateComponent } from './components/task-create/task-create.component';
 import { HeaderComponent } from './header/header.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { HomeComponent } from './pages/home/home.component';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
   declarations: [
