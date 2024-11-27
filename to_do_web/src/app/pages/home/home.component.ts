@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc, getDocs, query, orderBy } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, doc, updateDoc, deleteDoc, getDocs, query, orderBy, limit, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '@angular/fire/auth';
-import { where } from 'firebase/firestore';
-import { RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { Task } from 'src/app/components/task/task';
+import { collectionData } from '@angular/fire/firestore';
+import { trigger, style, transition, animate, stagger} from '@angular/animations';
+import { query as animQuery } from '@angular/animations';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +30,7 @@ export class HomeComponent implements OnInit {
     private firestore: Firestore,
     private toastService: ToastService,
     private authService: AuthService,
+    private router: Router,
   ) {
     this.authService.user$.subscribe(user => {
       this.currentUser = user;
@@ -45,27 +48,12 @@ export class HomeComponent implements OnInit {
   // Load Tasks
   loadTasks() {
     if (!this.currentUser) {
+      this.toastService.showToast('error', 'Vous devez être connecté pour afficher les tâches.');
+      this.router.navigate(['/login']);
       return;
     }
-    console.log('Chargement des tâches pour l\'utilisateur : ', this.currentUser.uid);
-    const q = query(this.tasksCollection,  where('userId', '==', this.currentUser.uid)
-    );
-    this.todo$ = new Observable<Task[]>(observer => {
-      
-      getDocs(q).then(snapshot => {
-        const tasks: Task[] = [];
-        snapshot.forEach(docSnap => {
-          const data = docSnap.data() as Task;
-          console.log('Tâche récupérée :', data);
-          tasks.push({ id: docSnap.id, ...data });
-        });
-        observer.next(tasks);
-        observer.complete();
-      }).catch(error => {
-        observer.error(error);
-        this.toastService.showToast('error', 'Erreur lors du chargement des tâches.');
-      });
-    });
+    const q = query(this.tasksCollection, where('userId', '==', this.currentUser.uid), orderBy('date', 'desc'));
+    this.todo$ = collectionData(q, { idField: 'id' }) as Observable<Task[]>;
   }
 
   // Add Task
@@ -78,11 +66,11 @@ export class HomeComponent implements OnInit {
       const docRef = await addDoc(this.tasksCollection, {
         content: task.content,  
         done: task.done,
+        date: task.date,
         userId: this.currentUser.uid
       });
       console.log('Tâche ajoutée avec ID : ', docRef.id);
       this.toastService.showToast('success', 'Tâche ajoutée avec succès!');
-      this.loadTasks();
     } catch (e) {
       console.error('Erreur lors de l\'ajout de la tâche : ', e);
       this.toastService.showToast('error', 'Erreur lors de l\'ajout de la tâche.');
@@ -100,7 +88,6 @@ export class HomeComponent implements OnInit {
       await deleteDoc(taskDoc);
       console.log('Tâche supprimée avec ID : ', id);
       this.toastService.showToast('success', 'Tâche supprimée avec succès!');
-      this.loadTasks();
     } catch (e) {
       console.error('Erreur lors de la suppression de la tâche : ', e);
       this.toastService.showToast('error', 'Erreur lors de la suppression de la tâche.');
@@ -125,7 +112,6 @@ export class HomeComponent implements OnInit {
         console.log('Tâche mise à jour avec ID : ', this.editedTask.id);
         this.toastService.showToast('success', 'Tâche mise à jour avec succès!');
         this.isEditModalOpen = false;
-        this.loadTasks();
       } catch (e) {
         console.error('Erreur lors de la mise à jour de la tâche : ', e);
         this.toastService.showToast('error', 'Erreur lors de la mise à jour de la tâche.');
@@ -150,7 +136,6 @@ export class HomeComponent implements OnInit {
         });
         console.log('Statut de la tâche mis à jour pour ID : ', task.id);
         this.toastService.showToast('info', 'Statut de la tâche mis à jour.');
-        this.loadTasks();
       } catch (e) {
         console.error('Erreur lors de la mise à jour du statut de la tâche : ', e);
         this.toastService.showToast('error', 'Erreur lors de la mise à jour du statut.');

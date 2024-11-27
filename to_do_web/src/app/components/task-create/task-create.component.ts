@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task/task';
 import { AuthService } from '../../services/auth.service';
 import { User } from '@angular/fire/auth';
+import { HomeComponent } from 'src/app/pages/home/home.component';
 
 @Component({
   selector: 'app-task-create',
@@ -26,6 +27,7 @@ export class TaskCreateComponent {
         return;
       }
       const task: Task = {
+        date: new Date(),
         content: this.newTaskContent.trim(),
         done: false,
         userId: this.currentUser.uid
