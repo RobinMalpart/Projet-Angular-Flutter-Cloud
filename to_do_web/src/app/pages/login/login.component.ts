@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
   signInForm: FormGroup<{
@@ -17,12 +23,16 @@ export class LoginComponent {
     password: FormControl<string>;
   }>;
 
-  error: string = ''; 
-  loading: boolean = false; 
+  error: string = '';
+  loading: boolean = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.signInForm = this.fb.nonNullable.group({
-      email: ['', [Validators.required, Validators.email]], 
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }
@@ -39,7 +49,7 @@ export class LoginComponent {
         try {
           await this.authService.signIn(email, password);
           console.log('Sign-In successful');
-          this.router.navigate(['/home']); 
+          this.router.navigate(['/home']);
         } catch (error: any) {
           console.error('Sign-In error:', error);
 
