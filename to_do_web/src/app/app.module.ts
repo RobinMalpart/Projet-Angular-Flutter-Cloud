@@ -23,8 +23,6 @@ import { HomeComponent } from './components/home/home.component';
     TaskCreateComponent,
     HeaderComponent,
     ToastComponent,
-    LoginComponent,
-    RegisterComponent,
     HomeComponent
   ],
   imports: [
