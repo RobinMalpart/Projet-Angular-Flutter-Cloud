@@ -1,0 +1,25 @@
+<!-- to_do_web/src/app/task/task.component.html -->
+<div class="flex items-center rounded-md p-3 bg-[#009688] my-2 text-white mx-4 md:mx-1">
+  <input
+    type="checkbox"
+    [(ngModel)]="task.done"
+    (change)="onToggle()"
+    class="mr-2"
+  />
+  <span [class.line-through]="task.done">{{ task.content }}</span>
+  <div class="ml-auto">
+    <div class="ml-auto flex items-center space-x-2">
+      <img
+        src="assets/dustbin.png"
+        alt="Delete"
+        (click)="onDelete()"
+        class="w-6 h-6 cursor-pointer"
+      />
+      <img
+      src="assets/edit.png"
+      alt="Edit"
+      (click)="onEdit()"
+      class="w-6 h-6 cursor-pointer"
+    />
+  </div>
+</div>
