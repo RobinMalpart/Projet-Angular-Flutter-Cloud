@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +7,17 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private authService: AuthService) {}
+  showLogoutButton: boolean = true;
 
-  reloadPage() {
-    window.location.reload();
+  constructor(private router: Router) {
+    this.router.events.subscribe(() => {
+      const currentRoute = this.router.url;
+      this.showLogoutButton = !(currentRoute.includes('login') || currentRoute.includes('register'));
+    });
   }
 
   logout() {
-    this.authService.logout();
+    console.log('User logged out');
+    this.router.navigate(['/login']);
   }
 }

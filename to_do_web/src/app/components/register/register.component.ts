@@ -1,32 +1,70 @@
-// src/app/components/register/register.component.ts
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { FormBuilder, Validators, ReactiveFormsModule, FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
+  standalone: true,
   selector: 'app-register',
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  email: string = '';
-  password: string = '';
-  confirmPassword: string = '';
-  errorMessage: string = '';
+  signUpForm: FormGroup<{
+    email: FormControl<string>;
+    password: FormControl<string>;
+    confirmPassword: FormControl<string>;
+  }>;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  error: string = '';
+  loading: boolean = false;
 
-  async onRegister() {
-    if (this.password !== this.confirmPassword) {
-      this.errorMessage = 'Les mots de passe ne correspondent pas.';
-      return;
-    }
-    try {
-      await this.authService.signUp(this.email, this.password);
-      this.router.navigate(['/']);
-    } catch (error: any) {
-      console.error('Erreur lors de l\'inscription :', error);
-      this.errorMessage = error.message;
-    }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router : Router) {
+    this.signUpForm = this.fb.nonNullable.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
+    }, { validators: this.passwordMatchValidator });
   }
+
+  passwordMatchValidator(control: AbstractControl): null | { mismatch: boolean } {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  async onSubmit() {
+    if (this.signUpForm.valid) {
+      const email = this.signUpForm.get('email')?.value;
+      const password = this.signUpForm.get('password')?.value;
+  
+      if (email && password) {
+        this.loading = true;
+        this.error = '';
+        try {
+          await this.authService.signUp(email, password);
+          console.log('Sign-up successful');
+          this.router.navigate(['/login']);
+
+        } catch (error: any) {
+          if (error?.code === 'auth/email-already-in-use') {
+            this.error = 'Email already in use';
+          } else if (error?.code === 'auth/weak-password') {
+            this.error = 'Password is too weak';
+          } else if (error?.code === 'auth/invalid-email') {
+            this.error = 'Invalid email address';
+          } else {
+            this.error = error?.message || 'An unexpected error occurred.';
+          }
+          console.error('Sign-up error:', error);
+        } finally {
+          this.loading = false;
+        }
+      }
+    } else {
+      this.error = 'Please fill out the form correctly.';
+    }
+  }  
 }

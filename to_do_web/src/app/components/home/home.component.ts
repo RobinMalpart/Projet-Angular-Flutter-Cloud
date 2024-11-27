@@ -7,6 +7,7 @@ import { ToastService } from '../../services/toast.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '@angular/fire/auth';
 import { where } from 'firebase/firestore';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',

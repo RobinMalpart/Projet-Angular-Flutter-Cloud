@@ -1,57 +1,98 @@
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-      Login
-    </h2>
-  </div>
+  <h2 class="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">
+    Login
+  </h2>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form (ngSubmit)="onLogin()" class="space-y-6">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Email Address -->
       <div>
-        <label for="email" class="block text-sm/6 font-medium text-gray-900">Email address</label>
+        <label for="email" class="block text-sm font-medium text-gray-900">
+          Email address
+        </label>
         <div class="mt-2">
           <input
             id="email"
-            name="email"
             type="email"
-            [(ngModel)]="email"
-            required
+            formControlName="email"
             autocomplete="email"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+            required
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
           />
+        </div>
+        <div
+          *ngIf="
+            signInForm.controls.email.touched &&
+            signInForm.controls.email.invalid
+          "
+          class="text-sm text-red-600 mt-1"
+        >
+          <small *ngIf="signInForm.controls.email.errors?.['required']"
+            >Email is required.</small
+          >
+          <small *ngIf="signInForm.controls.email.errors?.['email']"
+            >Enter a valid email address.</small
+          >
         </div>
       </div>
 
+      <!-- Password -->
       <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-        </div>
+        <label for="password" class="block text-sm font-medium text-gray-900">
+          Password
+        </label>
         <div class="mt-2">
           <input
             id="password"
-            name="password"
             type="password"
-            [(ngModel)]="password"
-            required
+            formControlName="password"
             autocomplete="current-password"
-            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+            required
+            class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
           />
+        </div>
+        <div
+          *ngIf="
+            signInForm.controls.password.touched &&
+            signInForm.controls.password.invalid
+          "
+          class="text-sm text-red-600 mt-1"
+        >
+          <small *ngIf="signInForm.controls.password.errors?.['required']"
+            >Password is required.</small
+          >
+          <small *ngIf="signInForm.controls.password.errors?.['minlength']">
+            Password must be at least 6 characters long.
+          </small>
         </div>
       </div>
 
-      <div>
+      <!-- Global Error Message -->
+      <div *ngIf="error" class="mb-4 text-sm text-red-600">
+        {{ error }}
+      </div>
+
+      <!-- Submit Button -->
+      <div class="relative">
         <button
           type="submit"
-          class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+          [disabled]="signInForm.invalid || loading"
+          class="flex w-full justify-center rounded-md bg-[#009688] px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
+          <span *ngIf="loading" class="spinner mr-2"></span>
           Sign in
         </button>
       </div>
     </form>
 
+    <!-- Not a member -->
     <p class="mt-10 text-center text-sm text-gray-500">
       Not a member?
-      <a routerLink="/register" class="font-semibold text-indigo-600 hover:text-indigo-500">Sign up</a>
+      <a
+        routerLink="/register"
+        class="font-semibold text-[#009688]"
+        >Sign up</a
+      >
     </p>
   </div>
 </div>
