@@ -18,6 +18,7 @@ class TaskService {
 
    return taskCollection
         .where('userId', isEqualTo: userId)
+       .orderBy('date', descending: true)
         .snapshots()
         .map((querySnapshot) {
       return querySnapshot.docs.map((doc) {
@@ -51,8 +52,7 @@ class TaskService {
     } catch (e) {
       showToast(message: "Oops, an error occurred!");
     }
-  }
-
+  }a
 
   void updateData(TaskModel task) {
     taskCollection.doc(task.id).update({
