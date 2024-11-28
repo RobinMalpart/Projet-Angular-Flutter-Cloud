@@ -48,11 +48,11 @@ class TaskService {
 
     try {
       await taskCollection.doc(id).set(newTask); // Save the task to Firestore
-      showToast(message: "Data Created Successfully");
+      showToast(message: "Task Created Successfully");
     } catch (e) {
       showToast(message: "Oops, an error occurred!");
     }
-  }a
+  }
 
   void updateData(TaskModel task) {
     taskCollection.doc(task.id).update({

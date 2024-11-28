@@ -33,12 +33,11 @@ class Task extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Checkbox and Text
             Expanded(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center, // Center items vertically
                 children: [
                   Checkbox(
                     value: taskCompleted,
@@ -69,20 +68,20 @@ class Task extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.edit, color: Colors.white),
-                  onPressed: () {
+                GestureDetector(
+                  onTap: () {
                     if (updateFunction != null) updateFunction!(context);
                   },
-                  tooltip: 'Update Task',
+                  child: const Icon(Icons.edit, color: Colors.white),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.white),
-                  onPressed: () {
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () {
                     if (deleteFunction != null) deleteFunction!(context);
                   },
-                  tooltip: 'Delete Task',
+                  child: const Icon(Icons.delete, color: Colors.white),
                 ),
               ],
             ),

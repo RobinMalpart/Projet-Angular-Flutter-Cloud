@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/components/show_toast.dart';
 import 'package:mobile/pages/login_page.dart';
-import 'package:mobile/services/firebase_auth.dart';
+import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/components/form_container.dart';
 import 'package:logger/logger.dart';
 
@@ -55,7 +55,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Todo App'),
+          title: const Text('Do it !'),
           backgroundColor: Colors.teal,
           foregroundColor: Colors.white,
         ),

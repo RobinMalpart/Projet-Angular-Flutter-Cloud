@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile/components//show_toast.dart';
 import 'package:mobile/pages/signup_page.dart';
 import 'package:mobile/components/form_container.dart';
-import 'package:mobile/services/firebase_auth.dart';
+import 'package:mobile/services/auth_service.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger();
@@ -40,7 +40,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.pushNamed(context, "/toDo");
         }
       } else {
-        showToast(message: "OOps invalid credentials!");
+        showToast(message: "Invalid credentials");
       }
     } catch (e) {
       logger.e("Error during sign-in: ${e.toString()}");
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Todo App'),
+          title: const Text('Do it !'),
           backgroundColor: Colors.teal,
           foregroundColor: Colors.white,
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/services/firebase_auth.dart';
+import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/components/show_toast.dart';
 import 'package:logger/logger.dart';
 

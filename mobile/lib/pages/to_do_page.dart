@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:mobile/components/add_task.dart';
 import 'package:mobile/models/task_model.dart';
-import 'package:mobile/services/firebase_auth.dart';
+import 'package:mobile/services/auth_service.dart';
 import 'package:mobile/services/task_service.dart';
 import 'package:mobile/components/show_toast.dart';
 import 'package:mobile/components/task_list.dart';
@@ -78,7 +78,7 @@ class _ToDoState extends State<ToDo> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('ToDo App'),
+        title: const Text('Do it !'),
         backgroundColor: Colors.lightGreenAccent,
         foregroundColor: Colors.grey[700],
         actions: [
@@ -99,7 +99,7 @@ class _ToDoState extends State<ToDo> {
             return Center(child: Text("Error: ${snapshot.error}"));
           }
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("No Data Available"));
+            return const SizedBox();
           }
 
           final toDoList = snapshot.data!;
