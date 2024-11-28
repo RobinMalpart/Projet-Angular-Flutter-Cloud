@@ -7,7 +7,7 @@
     <form [formGroup]="signInForm" (ngSubmit)="onSubmit()" class="space-y-3">
       <!-- Email Address -->
       <div>
-        <div class="mt-2">
+        <div class="mt-2 ">
           <input
             id="email"
             type="email"
@@ -15,7 +15,7 @@
             autocomplete="email"
             placeholder="Email"
             required
-            class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
+            class="block w-full rounded-md border-0 py-1.5 px-3 text-[#7e7a80] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
           />
         </div>
         <div
@@ -23,7 +23,7 @@
             signInForm.controls.email.touched &&
             signInForm.controls.email.invalid
           "
-          class="text-sm text-red-600 mt-1"
+          class="text-red-600 mt-1"
         >
           <small *ngIf="signInForm.controls.email.errors?.['required']"
             >Email is required.</small
@@ -35,84 +35,70 @@
       </div>
 
       <!-- Password -->
-      <!-- Password Field -->
-      <div class="mt-2">
-        <div class="relative">
-          <input
-            id="password"
-            [type]="showPassword ? 'text' : 'password'"
-            formControlName="password"
-            autocomplete="current-password"
-            placeholder="Password"
-            required
-            class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
-          />
-          <!-- Eye Toggle Button -->
-          <button
-            type="button"
-            (click)="togglePasswordVisibility()"
-            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
-          >
-            <!-- Eye Icon -->
-            <svg
-              *ngIf="showPassword"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="h-5 w-5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-              />
-            </svg>
-            <!-- Eye Slash Icon -->
-            <svg
-              *ngIf="!showPassword"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="h-5 w-5"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3.98 8.223a10.477 10.477 0 0 1 8.02-3.723c4.639 0 8.573 3.01 9.963 7.183a1.012 1.012 0 0 1 0 .633c-.562 1.608-1.604 3.01-2.935 4.087M14.121 14.121a3 3 0 1 1-4.243-4.243"
-              />
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M20 20L4 4"
-              />
-            </svg>
-          </button>
-        </div>
-        <!-- Password Validation Errors -->
-        <div
-          *ngIf="
-            signInForm.controls.password.touched &&
-            signInForm.controls.password.invalid
-          "
-          class="text-sm text-red-600 mt-1"
+      <div class="mt-2 relative">
+        <input
+          id="password"
+          [type]="showPassword ? 'text' : 'password'"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="Password"
+          required
+          class="block w-full rounded-md border-0 py-1.5 px-3 text-[#7e7a80] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
+        />
+        <!-- Bouton afficher/masquer -->
+        <button
+          type="button"
+          (click)="togglePasswordVisibility()"
+          class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500"
         >
-          <small *ngIf="signInForm.controls.password.errors?.['required']"
-            >Password is required.</small
+          <!-- Icône SVG -->
+          <svg
+            *ngIf="!showPassword"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-5 w-5"
           >
-        </div>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+            />
+          </svg>
+          <!-- Icône barrée pour masquer -->
+          <svg
+            *ngIf="showPassword"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="h-5 w-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.98 8.223a10.477 10.477 0 0 1 8.02-3.723c4.639 0 8.573 3.01 9.963 7.183a1.012 1.012 0 0 1 0 .633c-.562 1.608-1.604 3.01-2.935 4.087M14.121 14.121a3 3 0 1 1-4.243-4.243"
+            />
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M20 20L4 4"
+            />
+          </svg>
+        </button>
       </div>
 
+
       <!-- Global Error Message -->
-      <div *ngIf="error" class="mb-4 text-sm text-red-600">
+      <div *ngIf="error" class="mb-4 text-red-600">
         {{ error }}
       </div>
 
@@ -121,9 +107,9 @@
         <button
           type="submit"
           [disabled]="signInForm.invalid || loading"
-          class="flex w-full mt-6 justify-center rounded-md bg-[#009688] px-3 py-1.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
+          class="flex w-full mt-6 justify-center rounded-md bg-[#C2FF7B] px-3 py-1.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 cursor-pointer"
         >
-          <span *ngIf="loading" class="spinner mr-2"></span>
+          <span *ngIf="loading" class="spinner mr-2 "></span>
           Sign in
         </button>
       </div>
@@ -132,7 +118,11 @@
     <!-- Not a member -->
     <p class="mt-10 text-center text-sm text-gray-500">
       Don't have an account?
-      <a routerLink="/register" class="font-semibold text-[#009688]">Sign up</a>
+      <a
+        routerLink="/register"
+        class="font-semibold text-[#009688]"
+        >Sign up</a
+      >
     </p>
   </div>
 </div>

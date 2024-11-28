@@ -1,10 +1,4 @@
-<header
-  [ngClass]="{
-    'bg-[#C2FF7B] text-gray-500': isHomePage,
-    'bg-[#009688] text-white': !isHomePage
-  }"
-  class="p-4 flex justify-between items-center"
->
+<header class="p-4 flex justify-between items-center bg-[#C2FF7B] text-gray-700 antialiased">
   <h1 class="text-xl">Do It !</h1>
   <button
     *ngIf="showLogoutButton"
