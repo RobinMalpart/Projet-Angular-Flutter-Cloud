@@ -29,6 +29,11 @@ export class RegisterComponent {
     }, { validators: this.passwordMatchValidator });
   }
 
+  showPassword: boolean = false; 
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword; 
+  }
   passwordMatchValidator(control: AbstractControl): null | { mismatch: boolean } {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;

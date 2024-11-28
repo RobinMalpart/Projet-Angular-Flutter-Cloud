@@ -37,6 +37,11 @@ export class LoginComponent {
     });
   }
 
+  showPassword: boolean = false; 
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword; 
+  }
   async onSubmit() {
     if (this.signInForm.valid) {
       const email = this.signInForm.get('email')?.value;
