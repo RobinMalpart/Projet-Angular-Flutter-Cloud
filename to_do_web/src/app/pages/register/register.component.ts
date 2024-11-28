@@ -50,7 +50,6 @@ export class RegisterComponent {
         this.error = '';
         try {
           await this.authService.signUp(email, password);
-          console.log('Sign-up successful');
           this.router.navigate(['/login']);
 
         } catch (error: any) {

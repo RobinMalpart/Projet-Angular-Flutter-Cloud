@@ -53,7 +53,6 @@ export class LoginComponent {
 
         try {
           await this.authService.signIn(email, password);
-          console.log('Sign-In successful');
           this.router.navigate(['/home']);
         } catch (error: any) {
           console.error('Sign-In error:', error);
