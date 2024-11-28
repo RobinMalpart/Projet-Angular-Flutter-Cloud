@@ -1,0 +1,35 @@
+<div>
+    <ng-container *ngIf="todo$ | async as todo; else loading">
+      <app-task
+        *ngFor="let task of todo"
+        [task]="task"
+        (deleteTask)="deleteTask($event)"
+        (editTask)="openEditModal($event)"
+        (toggleTask)="toggleCompleted($event)"
+      ></app-task>
+    </ng-container>
+    <ng-template #loading>
+      <p>Chargement des tâches...</p>
+    </ng-template>
+  </div>
+  
+  <div
+    *ngIf="isEditModalOpen"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+  >
+    <div class="bg-white p-6 rounded shadow-lg w-1/3">
+      <h2 class="text-xl mb-4">Edit Task</h2>
+      <div class="mb-4">
+        <label class="block text-gray-700">Content</label>
+        <input
+          type="text"
+          [(ngModel)]="editedTask.content"
+          class="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
+      <div class="flex justify-end">
+        <button (click)="saveTask()" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+        <button (click)="closeEditModal()" class="ml-2 bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+      </div>
+    </div>
+  </div>

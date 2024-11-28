@@ -16,6 +16,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TaskComponent } from './components/task/task.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { TaskListComponent } from './components/task-list/task-list.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     TaskCreateComponent,
     HeaderComponent,
     ToastComponent,
-    HomeComponent
+    HomeComponent,
+    TaskListComponent
   ],
   imports: [
     BrowserModule,
