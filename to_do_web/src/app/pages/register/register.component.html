@@ -6,7 +6,7 @@
   </h2>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="space-y-1">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="space-y-3">
       <!-- Email -->
       <div>
         <div class="mt-2">
@@ -37,7 +37,6 @@
       </div>
 
       <!-- Password -->
-      <!-- Password -->
       <div class="mt-2 relative">
         <input
           id="password"
@@ -46,7 +45,7 @@
           autocomplete="current-password"
           placeholder="Password"
           required
-          class="block w-full rounded-md border-0 py-1.5 px-3 text-[#7e7a80] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
+          class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
         />
         <!-- Bouton afficher/masquer -->
         <button
@@ -56,7 +55,7 @@
         >
           <!-- Icône SVG -->
           <svg
-            *ngIf="!showPassword"
+            *ngIf="showPassword"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -77,7 +76,7 @@
           </svg>
           <!-- Icône barrée pour masquer -->
           <svg
-            *ngIf="showPassword"
+            *ngIf="!showPassword"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -97,19 +96,32 @@
             />
           </svg>
         </button>
+        <div
+          *ngIf="
+            signUpForm.get('password')?.invalid &&
+            signUpForm.get('password')?.touched
+          "
+          class="text-sm text-red-600"
+        >
+          <span *ngIf="signUpForm.get('password')?.errors?.['required']"
+            >Password is required.</span
+          >
+          <span *ngIf="signUpForm.get('password')?.errors?.['minlength']">
+            Password must be at least 6 characters long.
+          </span>
+        </div>
       </div>
 
       <!-- Confirm Password -->
-      <!-- Password -->
       <div class="mt-2 relative">
         <input
-          id="password"
+          id="confirmPassword"
           [type]="showPassword ? 'text' : 'password'"
-          formControlName="password"
+          formControlName="confirmPassword"
           autocomplete="current-password"
           placeholder="Confirm password"
           required
-          class="block w-full rounded-md border-0 py-1.5 px-3 text-[#7e7a80] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
+          class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]"
         />
         <!-- Bouton afficher/masquer -->
         <button
@@ -119,7 +131,7 @@
         >
           <!-- Icône SVG -->
           <svg
-            *ngIf="!showPassword"
+            *ngIf="showPassword"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -140,7 +152,7 @@
           </svg>
           <!-- Icône barrée pour masquer -->
           <svg
-            *ngIf="showPassword"
+            *ngIf="!showPassword"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -160,6 +172,21 @@
             />
           </svg>
         </button>
+        <div
+          *ngIf="
+          signUpForm.get('confirmPassword')?.errors?.['required'] &&
+          signUpForm.get('confirmPassword')?.touched
+        "
+          class="text-sm text-red-600"
+        >
+          Confirm Password is required.
+        </div>
+        <div
+          *ngIf="signUpForm.errors?.['mismatch'] && signUpForm.get('confirmPassword')?.touched"
+          class="text-sm text-red-600"
+        >
+          Passwords do not match.
+        </div>
       </div>
 
       <!-- Global Error Message -->
@@ -183,5 +210,6 @@
     <p class="mt-10 text-center text-sm text-gray-500">
       Not a member?
       <a routerLink="/login" class="font-semibold text-[#009688]">Sign in</a>
+    </p>
   </div>
 </div>

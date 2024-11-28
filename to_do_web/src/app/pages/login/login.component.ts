@@ -57,8 +57,8 @@ export class LoginComponent {
         } catch (error: any) {
           console.error('Sign-In error:', error);
 
-          if (error?.code === 'auth/invalid-credential') {
-            this.error = 'No account found with this email or password.';
+          if (error?.code === 'auth/invalid-login-credentials') {
+            this.error = 'Invalid credentials.';
           } else {
             this.error = error?.message || 'An unexpected error occurred.';
           }
