@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +8,20 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
   showLogoutButton: boolean = true;
+  isHomePage: boolean = false;
 
   constructor(private router: Router) {
-    this.router.events.subscribe(() => {
-      const currentRoute = this.router.url;
-      this.showLogoutButton = !(currentRoute.includes('login') || currentRoute.includes('register'));
+    // Subscribe to router events
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const currentRoute = this.router.url;
+
+        // Determine if the logout button should be shown
+        this.showLogoutButton = !(currentRoute.includes('login') || currentRoute.includes('register'));
+
+        // Determine if the current route is '/home'
+        this.isHomePage = currentRoute === '/home';
+      }
     });
   }
 

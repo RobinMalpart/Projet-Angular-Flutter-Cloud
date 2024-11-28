@@ -1,11 +1,20 @@
-<header class="bg-[#C2FF7B] text-gray-500 p-4 flex justify-between items-center">
-  <h1 class="text-xl">Do It !</h1>
+<header
+  [ngClass]="{
+    'bg-[#C2FF7B] text-gray-500': isHomePage,
+    'bg-[#009688] text-white': !isHomePage
+  }"
+  class="p-4 flex justify-between items-center"
+>
+  <h1 class="text-xl">Do It!</h1>
   <button
     *ngIf="showLogoutButton"
     (click)="logout()"
-    class="text-gray-500 border border-gray-500 px-4 py-2 rounded"
+    [ngClass]="{
+      'text-gray-500 border-gray-500': isHomePage,
+      'text-white border-white': !isHomePage
+    }"
+    class="border px-4 py-2 rounded"
   >
     Logout
   </button>
 </header>
-
