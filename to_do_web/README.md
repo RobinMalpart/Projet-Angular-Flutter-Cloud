@@ -49,6 +49,7 @@ npm run build
 - Authentification utilisateur : inscription, connexion et déconnexion.
 - Gestion des tâches : création, modification, suppression et marquage des tâches comme terminées.
 - Notifications : affichage de messages pour informer l'utilisateur des actions effectuées.
+- Synchronisation en direct des taches.
 
 ## Technologies utilisées
 - Angular 16
