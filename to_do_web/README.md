@@ -1,27 +1,61 @@
 # ToDoWeb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.15.
+ToDoWeb est une application web de gestion de tâches développée avec Angular.
 
-## Development server
+## Prérequis
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- [Node.js](https://nodejs.org/) (version 16.x ou supérieure)
+- [Angular CLI](https://angular.io/cli) (installé globalement avec `npm install -g @angular/cli`)
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. **Cloner le dépôt du projet :**
 
-## Build
+```bash
+git clone 
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. **Naviguer dans le répertoire du projet :**
 
-## Running unit tests
+```bash
+cd to_do_web
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3. **Installer les dépendances :**
 
-## Running end-to-end tests
+```bash
+npm i -g  @angular/cli@16.2.16
+npm ci
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4. **Démarrer le serveur de développement :**
 
-## Further help
+Lancez l'application en mode développement avec la commande :
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+Ouvrez votre navigateur et accédez à http://localhost:4200/.
+```
+
+## Construction du projet
+
+Pour construire le projet pour la production, exécutez :
+    
+```bash
+npm run build
+```
+
+# Fonctionnalités
+
+- Authentification utilisateur : inscription, connexion et déconnexion.
+- Gestion des tâches : création, modification, suppression et marquage des tâches comme terminées.
+- Notifications : affichage de messages pour informer l'utilisateur des actions effectuées.
+
+## Technologies utilisées
+- Angular 16
+- Firebase
+- Tailwind CSS / CSS
+
+## Contributeurs
+- Robin Malpart
+- Sara Bevilacqua
+- Julien Chazal
