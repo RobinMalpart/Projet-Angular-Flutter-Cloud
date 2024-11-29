@@ -1,0 +1,14 @@
+<div>
+    <ng-container *ngIf="todo$ | async as todo; else loading">
+      <app-task
+        *ngFor="let task of todo"
+        [task]="task"
+        (deleteTask)="deleteTask($event)"
+        (editTask)="openEditModal($event)"
+        (toggleTask)="toggleCompleted($event)"
+      ></app-task>
+    </ng-container>
+    <ng-template #loading>
+      <p>Chargement des tâches...</p>
+    </ng-template>
+  </div>
