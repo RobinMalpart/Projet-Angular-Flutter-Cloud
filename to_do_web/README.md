@@ -33,15 +33,17 @@ npm ci
 Lancez l'application en mode développement avec la commande :
 
 ```bash
-Ouvrez votre navigateur et accédez à http://localhost:4200/.
+ng serve
 ```
+
+Ouvrez votre navigateur et accédez à http://localhost:4200/.
 
 ## Construction du projet
 
 Pour construire le projet pour la production, exécutez :
     
 ```bash
-npm run build
+ng build
 ```
 
 # Fonctionnalités
