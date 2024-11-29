@@ -30,3 +30,8 @@ Pour démarrer l'application web, suivez les instructions dans le fichier [READM
 - Robin Malpart
 - Sara Bevilacqua
 - Julien Chazal
+
+## Aperçu de l'application
+
+![Auth](./public/auth.png)
+![Home](./public/home.png)
