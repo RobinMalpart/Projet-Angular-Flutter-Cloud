@@ -1,12 +1,12 @@
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign up</h2>
+  <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-700">Sign up</h2>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="space-y-3">
       <!-- Email -->
       <div>
         <div class="mt-2">
-          <input id="email" formControlName="email" type="email" autocomplete="email" placeholder="Email" required class="block w-full rounded-md border-0 py-1.5 px-3 bg-[#e5dfe8] shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm/6" />
+          <input id="email" formControlName="email" type="email" autocomplete="email" placeholder="Email" required class="block w-full rounded-md border-0 py-1.5 px-3 bg-[#e5dfe8] shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c2ff7b] placeholder:text-gray-400 sm:text-sm/6" />
           <div *ngIf=" signUpForm.get('email')?.invalid && signUpForm.get('email')?.touched" class="text-sm text-red-600 mf-0">
             <span *ngIf="signUpForm.get('email')?.errors?.['required']">Email is required.</span>
             <span *ngIf="signUpForm.get('email')?.errors?.['email']">Enter a valid email address.</span>
@@ -17,7 +17,7 @@
       <!-- Password -->
       <div class="mt-2 relative">
         <div>
-        <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" autocomplete="current-password" placeholder="Password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]" />
+        <input id="password" [type]="showPassword ? 'text' : 'password'" formControlName="password" autocomplete="current-password" placeholder="Password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c2ff7b] placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]" />
         <!-- Bouton afficher/masquer -->
         <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500" >
           <!-- Icône SVG -->
@@ -41,7 +41,7 @@
 
       <!-- Confirm Password -->
       <div class="mt-2 relative">
-        <input id="confirmPassword" [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" autocomplete="current-password" placeholder="Confirm password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]" />
+        <input id="confirmPassword" [type]="showPassword ? 'text' : 'password'" formControlName="confirmPassword" autocomplete="current-password" placeholder="Confirm password" required class="block w-full rounded-md border-0 py-1.5 px-3 text-black shadow-sm focus:outline-none focus:ring-2 focus:ring-[#c2ff7b] placeholder:text-gray-400 sm:text-sm bg-[#e5dfe8]" />
         <!-- Bouton afficher/masquer -->
         <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500" >
           <!-- Icône SVG -->
