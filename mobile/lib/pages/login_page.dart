@@ -52,8 +52,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Do it !'),
-          backgroundColor: Colors.teal,
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.lightGreenAccent,
+          foregroundColor: Colors.grey[700],
         ),
         body: Center(
           child: Padding(
@@ -85,12 +85,12 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     height: 45,
                     decoration: BoxDecoration(
-                        color: Colors.teal,
+                        color: Colors.lightGreenAccent,
                         borderRadius: BorderRadius.circular(10)),
-                    child: const Center(
+                    child: Center(
                       child: Text("Login",
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold)),
+                              fontWeight: FontWeight.bold, color: Colors.grey[700])),
                     )),
               ),
               const SizedBox(height: 20, ),

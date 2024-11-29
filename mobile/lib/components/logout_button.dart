@@ -7,7 +7,7 @@ class LogoutButton extends StatelessWidget {
   final FirebaseAuthService _auth = FirebaseAuthService();
   final Logger logger = Logger();
 
-  LogoutButton({Key? key}) : super(key: key);
+  LogoutButton({super.key});
 
   void _logout(BuildContext context) async {
     try {

@@ -56,8 +56,8 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Do it !'),
-          backgroundColor: Colors.teal,
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.lightGreenAccent,
+          foregroundColor: Colors.grey[700],
         ),
         body: Center(
           child: Padding(
@@ -89,12 +89,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     width: double.infinity,
                     height: 45,
                     decoration: BoxDecoration(
-                        color: Colors.teal,
+                        color: Colors.lightGreenAccent,
                         borderRadius: BorderRadius.circular(10)),
-                    child: const Center(
+                    child: Center(
                       child: Text("Signup",
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold)),
+                              color: Colors.grey[700], fontWeight: FontWeight.bold)),
                     )),
               ),
               const SizedBox(height: 20, ),
