@@ -32,7 +32,6 @@ class AddTask extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        // Add Task Button with Circular Background
         Container(
           decoration: const BoxDecoration(
             shape: BoxShape.circle,

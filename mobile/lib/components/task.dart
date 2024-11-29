@@ -34,10 +34,9 @@ class Task extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            // Checkbox and Text
             Expanded(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center, // Center items vertically
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Checkbox(
                     value: taskCompleted,

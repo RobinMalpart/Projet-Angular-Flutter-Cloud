@@ -18,8 +18,10 @@ class TaskList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: tasks.map((task) {
+    return ListView.builder(
+      itemCount: tasks.length,
+      itemBuilder: (context, index) {
+        final task = tasks[index];
         return Task(
           taskName: task.content ?? "Unnamed Task",
           taskCompleted: task.done ?? false,
@@ -27,8 +29,7 @@ class TaskList extends StatelessWidget {
           deleteFunction: (value) => onDeleteTask(task.id!),
           updateFunction: (value) => onUpdateTask(task),
         );
-      }).toList(),
+      },
     );
   }
 }
-

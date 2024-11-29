@@ -92,7 +92,6 @@ class _ToDoState extends State<ToDo> {
       body: SafeArea(
         child: Column(
           children: [
-            // Expanded Task List to take available space and be scrollable
             Expanded(
               child: StreamBuilder<List<TaskModel>>(
                 stream: _taskService.readData(),
@@ -123,9 +122,7 @@ class _ToDoState extends State<ToDo> {
                 },
               ),
             ),
-            // Divider for visual separation
             const Divider(height: 1),
-            // Fixed Add Task Input at the bottom
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: AddTask(
@@ -136,7 +133,6 @@ class _ToDoState extends State<ToDo> {
           ],
         ),
       ),
-      // Removed floatingActionButton to prevent layout conflicts
     );
   }
 }
