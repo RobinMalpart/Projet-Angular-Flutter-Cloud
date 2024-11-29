@@ -17,7 +17,7 @@ class ToDo extends StatefulWidget {
 }
 
 class _ToDoState extends State<ToDo> {
-  final _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
   final TaskService _taskService = TaskService();
   TaskModel? _currentTask;
 
@@ -78,7 +78,7 @@ class _ToDoState extends State<ToDo> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Do it !'),
+        title: const Text('Do it!'),
         backgroundColor: Colors.lightGreenAccent,
         foregroundColor: Colors.grey[700],
         actions: [
@@ -89,34 +89,54 @@ class _ToDoState extends State<ToDo> {
           ),
         ],
       ),
-      body: StreamBuilder<List<TaskModel>>(
-        stream: _taskService.readData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (snapshot.hasError) {
-            return Center(child: Text("Error: ${snapshot.error}"));
-          }
-          if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const SizedBox();
-          }
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Expanded Task List to take available space and be scrollable
+            Expanded(
+              child: StreamBuilder<List<TaskModel>>(
+                stream: _taskService.readData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (snapshot.hasError) {
+                    return Center(child: Text("Error: ${snapshot.error}"));
+                  }
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(
+                      child: Text(
+                        "No tasks available. Add a new task!",
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                    );
+                  }
 
-          final toDoList = snapshot.data!;
+                  final toDoList = snapshot.data!;
 
-          return TaskList(
-            tasks: toDoList,
-            onCheckBoxChanged: checkBoxChanged,
-            onDeleteTask: deleteTask,
-            onUpdateTask: updateTask,
-          );
-        },
+                  return TaskList(
+                    tasks: toDoList,
+                    onCheckBoxChanged: checkBoxChanged,
+                    onDeleteTask: deleteTask,
+                    onUpdateTask: updateTask,
+                  );
+                },
+              ),
+            ),
+            // Divider for visual separation
+            const Divider(height: 1),
+            // Fixed Add Task Input at the bottom
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: AddTask(
+                controller: _controller,
+                onAdd: _saveNewTask,
+              ),
+            ),
+          ],
+        ),
       ),
-      floatingActionButton: AddTask(
-        controller: _controller,
-        onAdd: _saveNewTask,
-      ),
+      // Removed floatingActionButton to prevent layout conflicts
     );
   }
 }
-

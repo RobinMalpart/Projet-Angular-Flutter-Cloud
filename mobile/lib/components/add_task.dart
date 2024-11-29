@@ -17,33 +17,33 @@ class AddTask extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40, right: 20),
-            child: TextField(
-              controller: controller,
-              decoration: InputDecoration(
-                border: InputBorder.none, // Remove visible border
-                filled: true,
-                fillColor: Colors.grey.withOpacity(0.35),
-                hintStyle: const TextStyle(color: Colors.black45),
-                hintText: hintText ?? "Add a new task",
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                  borderRadius: BorderRadius.circular(10),
-                ),
+          child: TextField(
+            controller: controller,
+            decoration: InputDecoration(
+              hintText: hintText ?? "Add a new task",
+              hintStyle: const TextStyle(color: Colors.black45),
+              filled: true,
+              fillColor: Colors.grey.withOpacity(0.35),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
         ),
-        FloatingActionButton(
-          backgroundColor: Colors.lightGreenAccent,
-          foregroundColor: Colors.black,
-          onPressed: onAdd,
-          child: const Icon(Icons.add),
+        const SizedBox(width: 10),
+        // Add Task Button with Circular Background
+        Container(
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.lightGreenAccent,
+          ),
+          child: IconButton(
+            icon: const Icon(Icons.add),
+            color: Colors.black,
+            onPressed: onAdd,
+            tooltip: 'Add Task',
+          ),
         ),
       ],
     );
