@@ -1,5 +1,5 @@
 <div class="container mx-auto flex h-full flex-col" role="main">
-  <div class="mt-[25px]">
+  <div class="mt-2 mb-14">
     <ng-container *ngIf="todo$ | async as todo; else loading">
       <app-task
         *ngFor="let task of todo"
